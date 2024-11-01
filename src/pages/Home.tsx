@@ -60,6 +60,11 @@ const Button = styled.button`
   letter-spacing: 1px;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    background-color: #333333;
+    transition: 300ms;
+  }
 `;
 
 const BgLogo = styled.img`
