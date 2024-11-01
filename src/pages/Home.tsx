@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function Home() {
@@ -9,7 +10,12 @@ function Home() {
       />
       <Line></Line>
       <Content>
-        <Button>რეზიუმეს დამატება</Button>
+        <div style={{ position: "relative" }}>
+          <Link to={"/personal-info"}>
+            <Button>რეზიუმეს დამატება</Button>
+          </Link>
+          <BgLogo src="/assets/redberry-bg-logo.png"></BgLogo>
+        </div>
       </Content>
     </Container>
   );
@@ -18,14 +24,15 @@ function Home() {
 export default Home;
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
-  background-image: url("/assets/redberry-bg.png"),
-    url("/assets/redberry-bg-logo.png");
-  background-size: cover, 220px;
+  background-image: url("/assets/redberry-bg.png");
   background-repeat: no-repeat;
-  background-position: 0px center, right 35% top 65%;
+  background-position: 0px center;
   padding: 25px 70px 0 70px;
+  box-sizing: border-box;
 `;
 
 const Line = styled.div`
@@ -38,12 +45,12 @@ const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 `;
 
 const Button = styled.button`
-  position: absolute;
-  top: 50%;
-  align-content: center;
+  position: relative;
+  z-index: 100;
   padding: 18px 60px;
   border-radius: 8px;
   background-color: #1a1a1a;
@@ -53,4 +60,12 @@ const Button = styled.button`
   letter-spacing: 1px;
   border: none;
   cursor: pointer;
+`;
+
+const BgLogo = styled.img`
+  width: 220px;
+  position: absolute;
+  z-index: 1;
+  right: -125px;
+  top: -27px;
 `;
