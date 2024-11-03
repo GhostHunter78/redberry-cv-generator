@@ -11,6 +11,7 @@ import {
 } from "../global-styles/GlobalStyles";
 import GobackButton from "../components/GobackButton";
 import { useRef } from "react";
+import CvComponent from "../components/CvComponent";
 
 function PersonalInfo() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -68,13 +69,14 @@ function PersonalInfo() {
               <NumberInput
                 placeholder="შეიყვანეთ მობილურის ნომერი"
                 type="number"
+                min={0}
               />
               <StyledHint>მინიმუმ 7 და მაქსიმუმ 15 ციფრი</StyledHint>
             </InputDiv>
           </div>
         </Content>
       </LeftSideDiv>
-      <CVSample></CVSample>
+      <CvComponent />
     </Container>
   );
 }
@@ -84,7 +86,9 @@ export default PersonalInfo;
 const Container = styled.div`
   display: flex;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
+  overflow: hidden;
 `;
 
 const LeftSideDiv = styled.div`
@@ -102,12 +106,6 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`;
-
-const CVSample = styled.div`
-  background-color: white;
-  width: 45%;
-  height: 100%;
 `;
 
 const Form = styled.form`

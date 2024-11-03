@@ -50,8 +50,10 @@ export const HiddenFileInput = styled.input`
 `;
 
 export const TextArea = styled.textarea`
-  width: 100%;
+  min-width: 100%;
+  max-width: 400px;
   min-height: 100px;
+  max-height: 300px;
   padding: 16px;
   border-radius: 4px;
   border: solid 1px #bcbcbc;
