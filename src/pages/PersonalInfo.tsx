@@ -1,13 +1,31 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import {
+  HiddenFileInput,
+  StyledButton,
   StyledHint,
   StyledInput,
   StyledLabel,
 } from "../global-styles/GlobalStyles";
 import GobackButton from "../components/GobackButton";
+import { useRef } from "react";
 
 function PersonalInfo() {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log("Selected file:", file); // I'll change this logic later
+    }
+  };
+
   return (
     <Container>
       <LeftSideDiv>
@@ -26,6 +44,16 @@ function PersonalInfo() {
               <StyledHint>მინიმუმ 2 ასო</StyledHint>
             </InputDiv>
           </Form>
+          <FileUploadDiv>
+            <StyledLabel>პირადი ფოტოს ატვირთვა</StyledLabel>
+            <StyledButton onClick={handleUploadClick}>ატვირთვა</StyledButton>
+            <HiddenFileInput
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+            />
+          </FileUploadDiv>
         </Content>
       </LeftSideDiv>
       <CVSample></CVSample>
@@ -73,4 +101,12 @@ const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+`;
+
+const FileUploadDiv = styled.div`
+  width: fit-content;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 `;
