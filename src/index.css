@@ -19,3 +19,21 @@ body {
   overflow-x: hidden;
   background-color: #f9f9f9;
 }
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.gapY-35 {
+  row-gap: 35px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.w-full {
+  width: 100%;
+}

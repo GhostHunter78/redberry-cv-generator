@@ -2,10 +2,12 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import {
   HiddenFileInput,
+  NumberInput,
   StyledButton,
   StyledHint,
   StyledInput,
   StyledLabel,
+  TextArea,
 } from "../global-styles/GlobalStyles";
 import GobackButton from "../components/GobackButton";
 import { useRef } from "react";
@@ -54,6 +56,22 @@ function PersonalInfo() {
               onChange={handleFileChange}
             />
           </FileUploadDiv>
+          <StyledLabel>ჩემ შესახებ (არასავალდებულო)</StyledLabel>
+          <TextArea />
+          <div className="flex-col gapY-35 mt-30 w-full">
+            <InputDiv>
+              <StyledLabel>ელ.ფოსტა</StyledLabel>
+              <StyledInput placeholder="example@gmail.com" type="email" />
+            </InputDiv>
+            <InputDiv>
+              <StyledLabel>მობილურის ნომერი</StyledLabel>
+              <NumberInput
+                placeholder="შეიყვანეთ მობილურის ნომერი"
+                type="number"
+              />
+              <StyledHint>მინიმუმ 7 და მაქსიმუმ 15 ციფრი</StyledHint>
+            </InputDiv>
+          </div>
         </Content>
       </LeftSideDiv>
       <CVSample></CVSample>
@@ -71,6 +89,7 @@ const Container = styled.div`
 
 const LeftSideDiv = styled.div`
   width: 55%;
+  height: 100%;
   display: flex;
   align-items: baseline;
   gap: 50px;
@@ -79,6 +98,7 @@ const LeftSideDiv = styled.div`
 
 const Content = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -87,6 +107,7 @@ const Content = styled.div`
 const CVSample = styled.div`
   background-color: white;
   width: 45%;
+  height: 100%;
 `;
 
 const Form = styled.form`
@@ -105,7 +126,7 @@ const InputDiv = styled.div`
 
 const FileUploadDiv = styled.div`
   width: fit-content;
-  margin-top: 40px;
+  margin: 40px 0;
   display: flex;
   align-items: center;
   gap: 20px;

@@ -28,7 +28,6 @@ export const StyledHint = styled.p`
   font-size: 14px;
   font-weight: 500;
   color: #2e2e2e;
-  margin-top: 8;
   margin-bottom: 0px;
 `;
 
@@ -48,4 +47,30 @@ export const StyledButton = styled.button`
 export const HiddenFileInput = styled.input`
   display: none;
   cursor: pointer;
+`;
+
+export const TextArea = styled.textarea`
+  width: 100%;
+  min-height: 100px;
+  padding: 16px;
+  border-radius: 4px;
+  border: solid 1px #bcbcbc;
+  font-family: sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2e2e2e;
+  background-color: #fff;
+  margin-top: 8px;
+`;
+
+export const NumberInput = styled(StyledInput).attrs({ type: "number" })`
+  /* Hide arrows for Chrome, Safari, Edge, and Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Hide arrows for Firefox */
+  -moz-appearance: textfield;
 `;
