@@ -1,5 +1,8 @@
 export type HeaderProps = {
-  previousLocation: string;
   pageTitle: string;
   PageNumber: string;
+};
+
+export type LocationProps = {
+  previousLocation: string;
 };
