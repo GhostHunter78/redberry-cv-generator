@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { GeneralButtonProps } from "../types";
 
 export const StyledInput = styled.input`
   width: 100%;
@@ -51,7 +52,7 @@ export const HiddenFileInput = styled.input`
 
 export const TextArea = styled.textarea`
   min-width: 100%;
-  max-width: 400px;
+  max-width: 100px;
   min-height: 100px;
   max-height: 300px;
   padding: 16px;
@@ -65,6 +66,21 @@ export const TextArea = styled.textarea`
   margin-top: 8px;
 `;
 
+export const GeneralButton = styled.button<GeneralButtonProps>`
+  background-color: ${(props) => props.buttonBgColor};
+  color: white;
+  padding: 14px 35px;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+  font-family: sans-serif;
+  cursor: pointer;
+  &:hover {
+    background-color: #7949ff;
+    transition: 300ms;
+  }
+`;
+
 export const NumberInput = styled(StyledInput).attrs({ type: "number" })`
   /* Hide arrows for Chrome, Safari, Edge, and Opera */
   &::-webkit-outer-spin-button,
@@ -74,5 +90,5 @@ export const NumberInput = styled(StyledInput).attrs({ type: "number" })`
   }
 
   /* Hide arrows for Firefox */
-  -moz-appearance: textfield;
+  appearance: textfield;
 `;

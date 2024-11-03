@@ -6,3 +6,12 @@ export type HeaderProps = {
 export type LocationProps = {
   previousLocation: string;
 };
+
+export type GeneralButtonProps = {
+  buttonBgColor: string;
+};
+
+export type CvComponentProps = {
+  name: string;
+  surname: string;
+};

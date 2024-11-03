@@ -37,3 +37,12 @@ body {
 .w-full {
   width: 100%;
 }
+
+.cv-icon-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
