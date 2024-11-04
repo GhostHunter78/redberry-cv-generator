@@ -15,6 +15,7 @@ import GobackButton from "../components/GobackButton";
 import { useRef } from "react";
 import CvComponent from "../components/CvComponent";
 import { Link } from "react-router-dom";
+import { CvComponentProps } from "../types";
 
 function PersonalInfo() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -32,15 +33,13 @@ function PersonalInfo() {
     }
   };
 
-  type FormValues = {
-    name: string;
-    surname: string;
-  };
-
-  const { register, control } = useForm<FormValues>();
+  const { register, control } = useForm<CvComponentProps>();
 
   const name = useWatch({ control, name: "name" });
   const surname = useWatch({ control, name: "surname" });
+  const email = useWatch({ control, name: "email" });
+  const phone = useWatch({ control, name: "phone" });
+  const aboutInfo = useWatch({ control, name: "aboutInfo" });
 
   return (
     <Container>
@@ -81,17 +80,24 @@ function PersonalInfo() {
             />
           </FileUploadDiv>
           <StyledLabel>ჩემ შესახებ (არასავალდებულო)</StyledLabel>
-          <TextArea />
+          <TextArea id="aboutInfo" {...register("aboutInfo")} />
           <div className="flex-col gapY-35 mt-30 w-full">
             <InputDiv>
               <StyledLabel>ელ.ფოსტა</StyledLabel>
-              <StyledInput placeholder="example@gmail.com" type="email" />
+              <StyledInput
+                placeholder="example@gmail.com"
+                type="email"
+                id="email"
+                {...register("email")}
+              />
             </InputDiv>
             <InputDiv>
               <StyledLabel>მობილურის ნომერი</StyledLabel>
               <NumberInput
                 placeholder="შეიყვანეთ მობილურის ნომერი"
                 type="number"
+                id="phone"
+                {...register("phone")}
                 min={0}
               />
               <StyledHint>მინიმუმ 7 და მაქსიმუმ 15 ციფრი</StyledHint>
@@ -104,7 +110,13 @@ function PersonalInfo() {
           </NextPageBtnDiv>
         </Content>
       </LeftSideDiv>
-      <CvComponent name={name} surname={surname} />
+      <CvComponent
+        name={name}
+        surname={surname}
+        email={email}
+        phone={phone}
+        aboutInfo={aboutInfo}
+      />
     </Container>
   );
 }

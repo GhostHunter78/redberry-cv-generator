@@ -12,6 +12,9 @@ export type GeneralButtonProps = {
 };
 
 export type CvComponentProps = {
-  name: string;
-  surname: string;
+  name?: string | undefined;
+  surname?: string | undefined;
+  email?: string | undefined;
+  phone?: string | undefined;
+  aboutInfo?: string | undefined;
 };
