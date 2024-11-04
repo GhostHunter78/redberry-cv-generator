@@ -9,23 +9,29 @@ function CvComponent({
   email,
   phone,
   aboutInfo,
+  uploadedImgUrl,
 }: CvComponentProps) {
   return (
     <Main>
-      <NameAndSurnameDiv>
-        <NameAndSurname>{name || ""}</NameAndSurname>
-        <NameAndSurname>{surname || ""}</NameAndSurname>
-      </NameAndSurnameDiv>
-      <IconAndInfo style={{ marginBottom: "10px" }}>
-        {email ? <IoMail style={{ fill: "#898989" }} /> : ""}
-        {email ? email : ""}
-      </IconAndInfo>
-      <IconAndInfo>
-        {phone ? <FaPhone style={{ fill: "#898989" }} /> : ""}
-        {phone ? phone : ""}
-      </IconAndInfo>
-      {aboutInfo ? <AboutMeHeading>ჩემ შესახებ</AboutMeHeading> : ""}
-      {aboutInfo ? <AboutText>{aboutInfo}</AboutText> : ""}
+      <PerrsonalSection>
+        <PersonalContent>
+          <NameAndSurnameDiv>
+            <NameAndSurname>{name || ""}</NameAndSurname>
+            <NameAndSurname>{surname || ""}</NameAndSurname>
+          </NameAndSurnameDiv>
+          <IconAndInfo style={{ marginBottom: "10px" }}>
+            {email ? <IoMail style={{ fill: "#898989" }} /> : ""}
+            {email ? email : ""}
+          </IconAndInfo>
+          <IconAndInfo>
+            {phone ? <FaPhone style={{ fill: "#898989" }} /> : ""}
+            {phone ? phone : ""}
+          </IconAndInfo>
+          {aboutInfo ? <AboutMeHeading>ჩემ შესახებ</AboutMeHeading> : ""}
+          {aboutInfo ? <AboutText>{aboutInfo}</AboutText> : ""}
+        </PersonalContent>
+        {uploadedImgUrl && <UploadedPhoto src={uploadedImgUrl}></UploadedPhoto>}
+      </PerrsonalSection>
       <div className="cv-icon-div">
         <img src="/assets/redberry-icon.svg" />
       </div>
@@ -41,6 +47,18 @@ const Main = styled.div`
   padding: 48px 75px 44px 78px;
   display: flex;
   flex-direction: column;
+`;
+
+const PerrsonalSection = styled.section`
+  display: flex;
+  align-items: flex-start;
+`;
+
+const PersonalContent = styled.div`
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `;
 
 const NameAndSurnameDiv = styled.div`
@@ -72,11 +90,18 @@ const AboutMeHeading = styled.p`
 `;
 
 const AboutText = styled.p`
-  width: 432px;
+  max-width: 400px;
   overflow-wrap: break-word;
   font-weight: 400;
   font-size: 1rem;
   line-height: 22px;
   text-transform: lowercase;
   margin-top: 1rem;
+`;
+
+const UploadedPhoto = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: none;
 `;

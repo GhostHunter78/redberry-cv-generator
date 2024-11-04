@@ -12,13 +12,14 @@ import {
   TextArea,
 } from "../global-styles/GlobalStyles";
 import GobackButton from "../components/GobackButton";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import CvComponent from "../components/CvComponent";
 import { Link } from "react-router-dom";
 import { CvComponentProps } from "../types";
 
 function PersonalInfo() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [uploadedImgUrl, setUploadedImgUrl] = useState<string | null>(null);
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
@@ -29,7 +30,8 @@ function PersonalInfo() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      console.log("Selected file:", file); // I'll change this logic later
+      const fileUrl = URL.createObjectURL(file);
+      setUploadedImgUrl(fileUrl);
     }
   };
 
@@ -116,6 +118,7 @@ function PersonalInfo() {
         email={email}
         phone={phone}
         aboutInfo={aboutInfo}
+        uploadedImgUrl={uploadedImgUrl}
       />
     </Container>
   );

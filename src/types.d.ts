@@ -17,4 +17,5 @@ export type CvComponentProps = {
   email?: string | undefined;
   phone?: string | undefined;
   aboutInfo?: string | undefined;
+  uploadedImgUrl?: string | null;
 };
