@@ -12,7 +12,7 @@ import {
   TextArea,
 } from "../global-styles/GlobalStyles";
 import GobackButton from "../components/GobackButton";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CvComponent from "../components/CvComponent";
 import { Link } from "react-router-dom";
 import { CvComponentProps } from "../types";
@@ -20,6 +20,33 @@ import { CvComponentProps } from "../types";
 function PersonalInfo() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [uploadedImgUrl, setUploadedImgUrl] = useState<string | null>(null);
+
+  // Load initial values from localStorage
+  const { register, control } = useForm<CvComponentProps>({
+    defaultValues: {
+      name: localStorage.getItem("name") || "",
+      surname: localStorage.getItem("surname") || "",
+      email: localStorage.getItem("email") || "",
+      phone: localStorage.getItem("phone") || "",
+      aboutInfo: localStorage.getItem("aboutInfo") || "",
+    },
+  });
+
+  // Watch for changes in form values
+  const name = useWatch({ control, name: "name" });
+  const surname = useWatch({ control, name: "surname" });
+  const email = useWatch({ control, name: "email" });
+  const phone = useWatch({ control, name: "phone" });
+  const aboutInfo = useWatch({ control, name: "aboutInfo" });
+
+  // Save data to localStorage when values change
+  useEffect(() => {
+    if (name) localStorage.setItem("name", name);
+    if (surname) localStorage.setItem("surname", surname);
+    if (email) localStorage.setItem("email", email);
+    if (phone) localStorage.setItem("phone", phone);
+    if (aboutInfo) localStorage.setItem("aboutInfo", aboutInfo);
+  }, [name, surname, email, phone, aboutInfo]);
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
@@ -30,18 +57,22 @@ function PersonalInfo() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const fileUrl = URL.createObjectURL(file);
-      setUploadedImgUrl(fileUrl);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setUploadedImgUrl(base64String);
+        localStorage.setItem("uploadedImgUrl", base64String);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  const { register, control } = useForm<CvComponentProps>();
-
-  const name = useWatch({ control, name: "name" });
-  const surname = useWatch({ control, name: "surname" });
-  const email = useWatch({ control, name: "email" });
-  const phone = useWatch({ control, name: "phone" });
-  const aboutInfo = useWatch({ control, name: "aboutInfo" });
+  useEffect(() => {
+    const savedImgUrl = localStorage.getItem("uploadedImgUrl");
+    if (savedImgUrl) {
+      setUploadedImgUrl(savedImgUrl);
+    }
+  }, []);
 
   return (
     <Container>
