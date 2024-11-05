@@ -18,4 +18,9 @@ export type CvComponentProps = {
   phone?: string | undefined;
   aboutInfo?: string | undefined;
   uploadedImgUrl?: string | null;
+  position?: string | null;
+  employer?: string | null;
+  startDate?: string | null;
+  finishDate?: string | null;
+  jobDescription?: string | null;
 };

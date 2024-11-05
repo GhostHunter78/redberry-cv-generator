@@ -1,10 +1,12 @@
-import { useForm, useWatch } from "react-hook-form";
 import styled from "styled-components";
 import Header from "../components/Header";
 import {
   GeneralButton,
   HiddenFileInput,
+  InputDiv,
+  NextPageBtnDiv,
   NumberInput,
+  PersonalForm,
   StyledButton,
   StyledHint,
   StyledInput,
@@ -15,38 +17,23 @@ import GobackButton from "../components/GobackButton";
 import { useEffect, useRef, useState } from "react";
 import CvComponent from "../components/CvComponent";
 import { Link } from "react-router-dom";
-import { CvComponentProps } from "../types";
+import { useFormData } from "../Context/FormDataContext";
 
 function PersonalInfo() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [uploadedImgUrl, setUploadedImgUrl] = useState<string | null>(null);
 
-  // Load initial values from localStorage
-  const { register, control } = useForm<CvComponentProps>({
-    defaultValues: {
-      name: localStorage.getItem("name") || "",
-      surname: localStorage.getItem("surname") || "",
-      email: localStorage.getItem("email") || "",
-      phone: localStorage.getItem("phone") || "",
-      aboutInfo: localStorage.getItem("aboutInfo") || "",
-    },
-  });
+  const { name, surname, phone, email, aboutInfo, setFormData } = useFormData();
 
-  // Watch for changes in form values
-  const name = useWatch({ control, name: "name" });
-  const surname = useWatch({ control, name: "surname" });
-  const email = useWatch({ control, name: "email" });
-  const phone = useWatch({ control, name: "phone" });
-  const aboutInfo = useWatch({ control, name: "aboutInfo" });
-
-  // Save data to localStorage when values change
-  useEffect(() => {
-    if (name) localStorage.setItem("name", name);
-    if (surname) localStorage.setItem("surname", surname);
-    if (email) localStorage.setItem("email", email);
-    if (phone) localStorage.setItem("phone", phone);
-    if (aboutInfo) localStorage.setItem("aboutInfo", aboutInfo);
-  }, [name, surname, email, phone, aboutInfo]);
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
@@ -80,14 +67,15 @@ function PersonalInfo() {
         <GobackButton previousLocation={"/home"} />
         <Content>
           <Header pageTitle={"პირადი ინფო"} PageNumber={"1"} />
-          <Form>
+          <PersonalForm>
             <InputDiv>
               <StyledLabel>სახელი</StyledLabel>
               <StyledInput
                 placeholder="შეიყვანეთ სახელი"
                 type="text"
-                id="name"
-                {...register("name")}
+                name="name"
+                value={name}
+                onChange={handleChange}
               />
               <StyledHint>მინიმუმ 2 ასო</StyledHint>
             </InputDiv>
@@ -96,12 +84,13 @@ function PersonalInfo() {
               <StyledInput
                 placeholder="შეიყვანეთ გვარი"
                 type="text"
-                id="surname"
-                {...register("surname")}
+                name="surname"
+                value={surname}
+                onChange={handleChange}
               />
               <StyledHint>მინიმუმ 2 ასო</StyledHint>
             </InputDiv>
-          </Form>
+          </PersonalForm>
           <FileUploadDiv>
             <StyledLabel>პირადი ფოტოს ატვირთვა</StyledLabel>
             <StyledButton onClick={handleUploadClick}>ატვირთვა</StyledButton>
@@ -113,15 +102,23 @@ function PersonalInfo() {
             />
           </FileUploadDiv>
           <StyledLabel>ჩემ შესახებ (არასავალდებულო)</StyledLabel>
-          <TextArea id="aboutInfo" {...register("aboutInfo")} />
+          <TextArea
+            name="aboutInfo"
+            value={aboutInfo}
+            onChange={handleChange}
+          />
+          <StyledHint style={{ marginTop: "8px" }}>
+            მაქსიმუმ 300 სიტყვა
+          </StyledHint>
           <div className="flex-col gapY-35 mt-30 w-full">
             <InputDiv>
               <StyledLabel>ელ.ფოსტა</StyledLabel>
               <StyledInput
                 placeholder="example@gmail.com"
                 type="email"
-                id="email"
-                {...register("email")}
+                name="email"
+                value={email}
+                onChange={handleChange}
               />
             </InputDiv>
             <InputDiv>
@@ -129,8 +126,9 @@ function PersonalInfo() {
               <NumberInput
                 placeholder="შეიყვანეთ მობილურის ნომერი"
                 type="number"
-                id="phone"
-                {...register("phone")}
+                name="phone"
+                value={phone}
+                onChange={handleChange}
                 min={0}
               />
               <StyledHint>მინიმუმ 7 და მაქსიმუმ 15 ციფრი</StyledHint>
@@ -143,14 +141,7 @@ function PersonalInfo() {
           </NextPageBtnDiv>
         </Content>
       </LeftSideDiv>
-      <CvComponent
-        name={name}
-        surname={surname}
-        email={email}
-        phone={phone}
-        aboutInfo={aboutInfo}
-        uploadedImgUrl={uploadedImgUrl}
-      />
+      <CvComponent uploadedImgUrl={uploadedImgUrl} />
     </Container>
   );
 }
@@ -182,31 +173,10 @@ const Content = styled.div`
   align-items: flex-start;
 `;
 
-const Form = styled.form`
-  width: 100%;
-  display: flex;
-  gap: 35px;
-  margin-top: 55px;
-`;
-
-const InputDiv = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
-
 const FileUploadDiv = styled.div`
   width: fit-content;
   margin: 40px 0;
   display: flex;
   align-items: center;
   gap: 20px;
-`;
-
-const NextPageBtnDiv = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 100px;
 `;

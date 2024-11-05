@@ -2,15 +2,25 @@ import styled from "styled-components";
 import { CvComponentProps } from "../types";
 import { IoMail } from "react-icons/io5";
 import { FaPhone } from "react-icons/fa6";
+import { useLocation } from "react-router-dom";
+import { SectionLine } from "../global-styles/GlobalStyles";
+import { useFormData } from "../Context/FormDataContext";
 
-function CvComponent({
-  name,
-  surname,
-  email,
-  phone,
-  aboutInfo,
-  uploadedImgUrl,
-}: CvComponentProps) {
+function CvComponent({ uploadedImgUrl }: CvComponentProps) {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const {
+    position,
+    employer,
+    startDate,
+    finishDate,
+    jobDescription,
+    name,
+    surname,
+    email,
+    phone,
+    aboutInfo,
+  } = useFormData();
   return (
     <Main>
       <PerrsonalSection>
@@ -30,8 +40,31 @@ function CvComponent({
           {aboutInfo ? <AboutMeHeading>ჩემ შესახებ</AboutMeHeading> : ""}
           {aboutInfo ? <AboutText>{aboutInfo}</AboutText> : ""}
         </PersonalContent>
-        {uploadedImgUrl && <UploadedPhoto src={uploadedImgUrl}></UploadedPhoto>}
+        {uploadedImgUrl ? (
+          <UploadedPhoto src={uploadedImgUrl}></UploadedPhoto>
+        ) : (
+          ""
+        )}
       </PerrsonalSection>
+      {pathname === "/experience" ? (
+        <SectionLine style={{ marginTop: "18px" }} />
+      ) : (
+        ""
+      )}
+      <ExperienceSection>
+        {position || employer || startDate || finishDate || jobDescription ? (
+          <ExperienceHeading>გამოცდილება</ExperienceHeading>
+        ) : (
+          ""
+        )}
+        <div className="flex-col" style={{ rowGap: "8px" }}>
+          <p>{position || employer ? `${position} - ${employer}` : ""}</p>
+          <p style={{ fontStyle: "italic", color: "#909090" }}>
+            {startDate || finishDate ? `${startDate} - ${finishDate}` : ""}
+          </p>
+        </div>
+        <p className="w-full">{jobDescription ? jobDescription : ""}</p>
+      </ExperienceSection>
       <div className="cv-icon-div">
         <img src="/assets/redberry-icon.svg" />
       </div>
@@ -50,8 +83,19 @@ const Main = styled.div`
 `;
 
 const PerrsonalSection = styled.section`
+  width: 100%;
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
+`;
+
+const ExperienceSection = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 1rem;
+  margin-top: 24px;
 `;
 
 const PersonalContent = styled.div`
@@ -83,10 +127,14 @@ const IconAndInfo = styled.div`
 `;
 
 const AboutMeHeading = styled.p`
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   color: #f93b1d;
   margin-top: 30px;
+`;
+
+const ExperienceHeading = styled(AboutMeHeading)`
+  margin-top: 0;
 `;
 
 const AboutText = styled.p`
@@ -100,8 +148,8 @@ const AboutText = styled.p`
 `;
 
 const UploadedPhoto = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 210px;
+  height: 210px;
   border-radius: 50%;
   border: none;
 `;

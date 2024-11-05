@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { GeneralButtonProps } from "../types";
 
+export const InputDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
 export const StyledInput = styled.input`
   width: 100%;
   box-sizing: border-box;
@@ -14,6 +21,17 @@ export const StyledInput = styled.input`
     border-color: #4343dc;
     outline: none;
   }
+`;
+
+export const PersonalForm = styled.form`
+  width: 100%;
+  display: flex;
+  gap: 35px;
+  margin-top: 55px;
+`;
+
+export const DatesForm = styled(PersonalForm)`
+  margin-top: 40px !important;
 `;
 
 export const StyledLabel = styled.label`
@@ -79,6 +97,26 @@ export const GeneralButton = styled.button<GeneralButtonProps>`
     background-color: #7949ff;
     transition: 300ms;
   }
+`;
+
+export const NextPageBtnDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 100px;
+`;
+
+export const DateInputsDiv = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const SectionLine = styled.div`
+  height: 2px;
+  width: 100%;
+  background-color: #c8c8c8;
 `;
 
 export const NumberInput = styled(StyledInput).attrs({ type: "number" })`
