@@ -4,7 +4,7 @@ import {
   DatesForm,
   GeneralButton,
   InputDiv,
-  NextPageBtnDiv,
+  NavigationBtnsDiv,
   SectionLine,
   StyledHint,
   StyledInput,
@@ -15,6 +15,7 @@ import GobackButton from "../components/GobackButton";
 import CvComponent from "../components/CvComponent";
 import { Link } from "react-router-dom";
 import { useFormData } from "../Context/FormDataContext";
+import { useEffect } from "react";
 
 function Experience() {
   const {
@@ -36,6 +37,10 @@ function Experience() {
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container>
@@ -91,17 +96,27 @@ function Experience() {
           </DatesForm>
           <div className="flex-col mt-30 w-full">
             <StyledLabel>თანამდებობის აღწერა</StyledLabel>
-            <TextArea name="jobDescription" value={jobDescription} />
+            <TextArea
+              name="jobDescription"
+              value={jobDescription}
+              onChange={handleChange}
+            />
             <StyledHint style={{ marginTop: "8px" }}>
               მაქსიმუმ 300 სიტყვა
             </StyledHint>
           </div>
           <SectionLine style={{ marginTop: "50px" }} />
-          <NextPageBtnDiv>
-            <Link to={"/experience"}>
+          <GeneralButton style={{ marginTop: "45px" }} buttonBgColor="#62a1eb">
+            მეტი გამოცდილების დამატება
+          </GeneralButton>
+          <NavigationBtnsDiv>
+            <Link to={"/personal-info"}>
+              <GeneralButton buttonBgColor="#6b40e3">უკან</GeneralButton>
+            </Link>
+            <Link to={"/education"}>
               <GeneralButton buttonBgColor="#6b40e3">შემდეგი</GeneralButton>
             </Link>
-          </NextPageBtnDiv>
+          </NavigationBtnsDiv>
         </Content>
       </LeftSideDiv>
       <CvComponent uploadedImgUrl={uploadedImgUrl} />

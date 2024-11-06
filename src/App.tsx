@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import PersonalInfo from "./pages/PersonalInfo";
 import Experience from "./pages/Experience";
 import { FormDataProvider } from "./Context/FormDataContext";
+import Education from "./pages/Education";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/personal-info" element={<PersonalInfo />} />
           <Route path="/experience" element={<Experience />} />
+          <Route path="/education" element={<Education />} />
         </Routes>
       </FormDataProvider>
     </>

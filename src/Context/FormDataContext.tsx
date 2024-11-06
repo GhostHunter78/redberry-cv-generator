@@ -31,17 +31,21 @@ const FormDataContext = createContext<FormData | undefined>(undefined);
 
 export const FormDataProvider = ({ children }: { children: ReactNode }) => {
   const [formData, setFormData] = useState<InitialFormData>({
-    position: localStorage.getItem("position") || "",
-    employer: localStorage.getItem("employer") || "",
-    startDate: localStorage.getItem("startDate") || "",
-    finishDate: localStorage.getItem("finishDate") || "",
-    jobDescription: localStorage.getItem("jobDescription") || "",
     name: localStorage.getItem("name") || "",
     surname: localStorage.getItem("surname") || "",
     email: localStorage.getItem("email") || "",
     phone: localStorage.getItem("phone") || "",
     aboutInfo: localStorage.getItem("aboutInfo") || "",
     uploadedImgUrl: localStorage.getItem("uploadedImgUrl") || "",
+    // experiences: [
+    //   {
+    position: localStorage.getItem("position") || "",
+    employer: localStorage.getItem("employer") || "",
+    startDate: localStorage.getItem("startDate") || "",
+    finishDate: localStorage.getItem("finishDate") || "",
+    jobDescription: localStorage.getItem("jobDescription") || "",
+    //   },
+    // ],
   });
 
   // Update localStorage whenever formData changes

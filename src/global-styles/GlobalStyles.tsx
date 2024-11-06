@@ -99,6 +99,14 @@ export const GeneralButton = styled.button<GeneralButtonProps>`
   }
 `;
 
+export const NavigationBtnsDiv = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 100px;
+`;
+
 export const NextPageBtnDiv = styled.div`
   width: 100%;
   display: flex;

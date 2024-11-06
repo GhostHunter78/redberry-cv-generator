@@ -16,10 +16,11 @@ import {
 import GobackButton from "../components/GobackButton";
 import { useEffect, useRef, useState } from "react";
 import CvComponent from "../components/CvComponent";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useFormData } from "../Context/FormDataContext";
 
 function PersonalInfo() {
+  const location = useLocation();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [uploadedImgUrl, setUploadedImgUrl] = useState<string | null>(null);
 
@@ -60,6 +61,10 @@ function PersonalInfo() {
       setUploadedImgUrl(savedImgUrl);
     }
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <Container>
